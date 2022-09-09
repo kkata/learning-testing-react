@@ -11,6 +11,7 @@ export const App = () => {
       <button style={{ backgroundColor: buttonColor }} onClick={handleClick}>
         Change to {newButtonColor}
       </button>
+      <input type="checkbox" />
     </div>
   );
 };
