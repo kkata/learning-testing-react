@@ -26,8 +26,9 @@ export const App = () => {
         type="checkbox"
         onClick={handleCheck}
         defaultChecked={buttonDisabled}
-        aria-checked={buttonDisabled}
+        id="disable-button-checkbox"
       />
+      <label htmlFor="disable-button-checkbox">Disable button</label>
     </div>
   );
 };
