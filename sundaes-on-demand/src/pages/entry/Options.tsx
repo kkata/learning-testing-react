@@ -4,6 +4,7 @@ import { Row } from "react-bootstrap";
 
 import { IceCreamFlavorsType } from "../../types";
 import { ScoopOption } from "./ScoopOption";
+import { ToppingOption } from "./ToppingOption";
 
 type PropsType = {
   options: "scoops" | "toppings";
@@ -22,9 +23,7 @@ export const Options = ({ options }: PropsType) => {
       .catch((error) => console.log(error));
   }, [options]);
 
-  // TODO: replace null with optionItems when you're ready
-  const ItemComponent = options === "scoops" ? ScoopOption : null;
-  if (ItemComponent === null) return <>No ItemComponent</>;
+  const ItemComponent = options === "scoops" ? ScoopOption : ToppingOption;
 
   const optionItemsElements = optionItems.map((item) => {
     return (
