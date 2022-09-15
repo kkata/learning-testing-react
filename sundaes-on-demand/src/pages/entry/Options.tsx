@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 
+import { PRICE_PER_ITEM } from "../../constants/index";
+import { useOrderDetailsContext } from "../../contexts/OrderDetails";
 import { IceCreamFlavorsType } from "../../types";
 import { AlertBanner } from "../common/AlertBanner";
 import { ScoopOption } from "./ScoopOption";
@@ -14,6 +16,7 @@ type PropsType = {
 export const Options = ({ options }: PropsType) => {
   const [optionItems, setOptionItems] = useState<IceCreamFlavorsType[]>([]);
   const [isError, setIsError] = useState(false);
+  const { totals, updateItemCount } = useOrderDetailsContext();
 
   useEffect(() => {
     axios
@@ -32,6 +35,7 @@ export const Options = ({ options }: PropsType) => {
   }
 
   const ItemComponent = options === "scoops" ? ScoopOption : ToppingOption;
+  const title = options[0].toUpperCase() + options.slice(1).toLowerCase();
 
   const optionItemsElements = optionItems.map((item) => {
     return (
@@ -39,9 +43,21 @@ export const Options = ({ options }: PropsType) => {
         key={item.name}
         name={item.name}
         imagePath={item.imagePath}
+        updateItemCount={(itemName: string, newItemCount: string) =>
+          updateItemCount(itemName, newItemCount, options)
+        }
       />
     );
   });
 
-  return <Row>{optionItemsElements}</Row>;
+  return (
+    <>
+      <h2>{title}</h2>
+      <p>{PRICE_PER_ITEM[options]} each</p>
+      <p>
+        {title} total: {totals[options]}
+      </p>
+      <Row>{optionItemsElements}</Row>
+    </>
+  );
 };
