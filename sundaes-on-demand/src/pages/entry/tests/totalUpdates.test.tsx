@@ -58,7 +58,7 @@ test("update toppings subtotal when toppings change", async () => {
 
 describe("grand total", () => {
   test("grand total updates properly if scoop is added first", async () => {
-    render(<OrderEntry />);
+    render(<OrderEntry setOrderPhase={jest.fn()} />);
     const grandTotal = screen.getByRole("heading", {
       name: /grand total: \$/i,
     });
@@ -81,7 +81,7 @@ describe("grand total", () => {
   });
 
   test("grand total updates properly if topping is added first", async () => {
-    render(<OrderEntry />);
+    render(<OrderEntry setOrderPhase={jest.fn()} />);
     const grandTotal = screen.getByRole("heading", {
       name: /grand total: \$/i,
     });
@@ -100,7 +100,7 @@ describe("grand total", () => {
   });
 
   test("grand total updates properly if item is removed", async () => {
-    render(<OrderEntry />);
+    render(<OrderEntry setOrderPhase={jest.fn()} />);
     const grandTotal = screen.getByRole("heading", {
       name: /grand total: \$/i,
     });

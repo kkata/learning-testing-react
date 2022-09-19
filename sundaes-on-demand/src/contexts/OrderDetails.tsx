@@ -33,6 +33,7 @@ const OrderDetailsContext = createContext<
         newItemCount: string,
         options: "scoops" | "toppings"
       ): void;
+      resetOrder(): void;
     }
   | undefined
 >(undefined);
@@ -102,6 +103,13 @@ export const OrderDetailsProvider = (props: { children: ReactNode }) => {
       setOptionsCounts(newOptionsCounts);
     }
 
+    function resetOrder() {
+      setOptionsCounts({
+        scoops: new Map(),
+        toppings: new Map(),
+      });
+    }
+
     // getter: object containing option counts for scoops and toppings, subtotals and totals
     // setter: updateOptionCount
     // return [{ ...optionsCounts, totals }, updateItemCount];
@@ -110,6 +118,7 @@ export const OrderDetailsProvider = (props: { children: ReactNode }) => {
       orderDetails: optionsCounts,
 
       updateItemCount,
+      resetOrder,
     };
   }, [optionsCounts, totals]);
 

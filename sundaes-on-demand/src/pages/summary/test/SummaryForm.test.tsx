@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { SummaryForm } from "../SummaryForm";
 
 test("Checkbox is unchecked and button is disabled by default", () => {
-  render(<SummaryForm />);
+  render(<SummaryForm setOrderPhase={jest.fn()} />);
   const checkbox = screen.getByRole("checkbox", {
     name: /terms and conditions/i,
   });
@@ -16,7 +16,7 @@ test("Checkbox is unchecked and button is disabled by default", () => {
 
 test("Checking checkbox enables button and Unchecking checkbox again disables button", async () => {
   const user = userEvent.setup();
-  render(<SummaryForm />);
+  render(<SummaryForm setOrderPhase={jest.fn()} />);
 
   const checkbox = screen.getByRole("checkbox", {
     name: /terms and conditions/i,
@@ -33,7 +33,7 @@ test("Checking checkbox enables button and Unchecking checkbox again disables bu
 test("Popover responds to hover", async () => {
   const user = userEvent.setup();
 
-  render(<SummaryForm />);
+  render(<SummaryForm setOrderPhase={jest.fn()} />);
 
   const nullPopover = screen.queryByText(
     /no ice cream will actually be delivered/i

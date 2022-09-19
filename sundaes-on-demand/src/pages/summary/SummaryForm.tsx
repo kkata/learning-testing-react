@@ -1,8 +1,20 @@
 import { useState } from "react";
 import { Button, Form, OverlayTrigger, Popover } from "react-bootstrap";
 
-export const SummaryForm = () => {
+type PropsType = {
+  setOrderPhase: (orderPhase: "inProgress" | "review" | "completed") => void;
+};
+
+export const SummaryForm = ({ setOrderPhase }: PropsType) => {
   const [isChecked, setIsChecked] = useState(false);
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    // pass along to the next phase.
+    // The next page will handle submitting order from context.
+    setOrderPhase("completed");
+  };
 
   const popover = (
     <Popover id="popover-basic">
@@ -23,7 +35,7 @@ export const SummaryForm = () => {
     setIsChecked(!isChecked);
   };
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="terms-and-conditions">
         <Form.Check
           type="checkbox"
@@ -36,11 +48,5 @@ export const SummaryForm = () => {
         Confirm order
       </Button>
     </Form>
-    // <div>
-    //   <input type="checkbox" onClick={handleCheckboxChange} />
-    //   <button type="button" disabled={isChecked}>
-    //     Confirm Order
-    //   </button>
-    // </div>
   );
 };
